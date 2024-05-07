@@ -25,3 +25,4 @@ jobs:
           files: |
             Release.txt
             LICENSE
+            a.out
