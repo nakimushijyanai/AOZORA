@@ -11,7 +11,7 @@ permissions:
   contents:write
   
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,5 +20,6 @@ jobs:
           fetch-depth: 0
 
       - name: build 
+        shell: bash
         run: gcc main.c
 
