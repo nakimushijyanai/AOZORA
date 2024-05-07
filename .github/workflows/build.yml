@@ -1,23 +1,15 @@
 name: Build 
 
-on: push
+on: [ push, pull_request]
 
-env:
-    TAG_VERSION: v0.0.0
-    PREVIOUS_TAG: 0.0.0
-    LATEST_TAG: 0.0.0
-    
-permissions:
-  contents:write
+
   
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
       - name: build 
         shell: bash
