@@ -1,9 +1,6 @@
 name: Build 
 
-on:
-  push:
-    tags:
-      - '*'
+on: [ push, pull_request]
 
 
   
@@ -18,50 +15,16 @@ jobs:
         shell: bash
         run: gcc main.c
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: my-binary-artifact
-          path: a.out
-
-  # release:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Download artifact
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: my-binary-artifact
-  #         path: artifacts
+          files: |
+            a.out
+            LICENSE
 
 
 
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        with:
-          tag_name: v1.0.0
-          release_name: Release v1.0.0
-          draft: false
-          prerelease: false
 
-      - name: Attach Artifact
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: a.out
-          asset_name: a.out
-          asset_content_type: application/octet-stream
 
-      - name: Publish Release
-        uses: actions/update-release@v1
-        with:
-          release_id: ${{ steps.create_release.outputs.release_id }}
-          draft: false
-          prerelease: false
+
 
